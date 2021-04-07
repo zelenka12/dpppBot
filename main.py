@@ -34,6 +34,7 @@ async def start(message: types.Message):
 
 @dp.message_handler(lambda message: message.text == 'Видалити реєстрацію')
 async def gel_reg(message: types.Message):
+    user_id = message.from_user.id
     data = cursor.fetchall()
     subs_ids = []
     for id in data:
