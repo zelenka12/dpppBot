@@ -40,8 +40,7 @@ async def gel_reg(message: types.Message):
     for id in data:
         subs_ids.append(id[0])
     if user_id in subs_ids:
-        cursor.execute("""DELETE FROM subs WHERE ctid NOT IN
-        (SELECT max(ctid) FROM subs GROUP BY subs.user_id);""")
+        cursor.execute(f"""DELETE FROM subs WHERE user_id={user_id}""")
         await message.answer('Видалено')
     else:
         await message.answer('Ти не зареєстрований!')
