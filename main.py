@@ -25,10 +25,17 @@ class Register_state(StatesGroup):
 
 @dp.message_handler(lambda message: message.text == 'deleter')
 async def deleter(message: types.Message):
-    cursor.execute("""DELETE FROM subs WHERE ctid NOT IN
-(SELECT max(ctid) FROM subs GROUP BY subs.user_id);""")
-    connection.commit()
-    await message.answer('Видалено')
+    data = cursor.fetchall()
+    subs_ids = []
+    for id in data:
+        subs_ids.append(id[0])
+    if user_id in subs_ids:
+        cursor.execute("""DELETE FROM subs WHERE ctid NOT IN
+    (SELECT max(ctid) FROM subs GROUP BY subs.user_id);""")
+        connection.commit()
+        await message.answer('Видалено')
+    else:
+        await message.answer('Ти не зареєстрований!')
 
 @dp.message_handler(commands=['start'])  # cmd_start
 async def start(message: types.Message):
