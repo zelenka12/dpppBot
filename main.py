@@ -23,19 +23,6 @@ class Register_state(StatesGroup):
     stanucya = State()
     poshta = State()
 
-@dp.message_handler(lambda message: message.text == 'deleter')
-async def deleter(message: types.Message):
-    data = cursor.fetchall()
-    subs_ids = []
-    for id in data:
-        subs_ids.append(id[0])
-    if user_id in subs_ids:
-        cursor.execute("""DELETE FROM subs WHERE ctid NOT IN
-    (SELECT max(ctid) FROM subs GROUP BY subs.user_id);""")
-        await message.answer('Видалено')
-    else:
-        await message.answer('Ти не зареєстрований!')
-    connection.commit()
 
 @dp.message_handler(commands=['start'])  # cmd_start
 async def start(message: types.Message):
@@ -47,7 +34,17 @@ async def start(message: types.Message):
 
 @dp.message_handler(lambda message: message.text == 'Видалити реєстрацію')
 async def gel_reg(message: types.Message):
-    await deleter(message)
+    data = cursor.fetchall()
+    subs_ids = []
+    for id in data:
+        subs_ids.append(id[0])
+    if user_id in subs_ids:
+        cursor.execute("""DELETE FROM subs WHERE ctid NOT IN
+        (SELECT max(ctid) FROM subs GROUP BY subs.user_id);""")
+        await message.answer('Видалено')
+    else:
+        await message.answer('Ти не зареєстрований!')
+    connection.commit()
 
 @dp.message_handler(lambda message: message.text == "Зареєструватися", state=None)
 async def register(message: types.Message):
