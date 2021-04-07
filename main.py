@@ -98,22 +98,25 @@ async def poshta(message: types.Message, state: FSMContext):
     old = user_data.get('old')
     stanucya = user_data.get('stanucya')
     poshta = user_data.get('poshta')
-    data = cursor.fetchall()
-    subs_ids = []
-    for id in data:
-        subs_ids.append(id[0])
-    if user_id not in subs_ids:
-        cursor.execute(
-            f"INSERT INTO subs (username,f_name,old,user_id,stanucya,poshta) "
-            f"VALUES ('{username}', '{f_name}', '{old}', '{user_id}', '{stanucya}', '{poshta}')")
-        connection.commit()
-    else:
-        cursor.execute(f"UPDATE subs SET username='{username}',f_name='{f_name}', "
-                       f"old='{old}',user_id='{user_id}',stanucya='{stanucya}', poshta='{poshta}' "
-                       f"WHERE user_id={user_id}")
-        connection.commit()
-    await message.answer('Реєстрація Успішна')
-    await state.finish()
+    try:
+        data = cursor.fetchall()
+        subs_ids = []
+        for id in data:
+            subs_ids.append(id[0])
+        if user_id not in subs_ids:
+            cursor.execute(
+                f"INSERT INTO subs (username,f_name,old,user_id,stanucya,poshta) "
+                f"VALUES ('{username}', '{f_name}', '{old}', '{user_id}', '{stanucya}', '{poshta}')")
+            connection.commit()
+        else:
+            cursor.execute(f"UPDATE subs SET username='{username}',f_name='{f_name}', "
+                           f"old='{old}',user_id='{user_id}',stanucya='{stanucya}', poshta='{poshta}' "
+                           f"WHERE user_id={user_id}")
+            connection.commit()
+        await message.answer('Реєстрація Успішна')
+        await state.finish()
+    except psycopg2.ProgrammingError:
+        pass
 
 @dp.message_handler(lambda message: types.Message)
 async def info(message: types.Message):
