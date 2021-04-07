@@ -38,9 +38,9 @@ async def gel_reg(message: types.Message):
     data = cursor.fetchall()
     subs_ids = []
     for id in data:
-        subs_ids.append(id[0])
+        subs_ids.append(id[3])
     if user_id in subs_ids:
-        cursor.execute(f"""DELETE FROM subs WHERE user_id={user_id}""")
+        cursor.execute(f"""DELETE FROM subs WHERE user_id='{user_id}'""")
         await message.answer('Видалено')
     else:
         await message.answer('Ти не зареєстрований!')
@@ -54,7 +54,7 @@ async def register(message: types.Message):
     data = cursor.fetchall()
     subs_ids = []
     for id in data:
-        subs_ids.append(id[0])
+        subs_ids.append(id[3])
     if user_id in subs_ids:
         await message.answer('Ви вже зареєстровані!')
     else:
