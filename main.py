@@ -113,12 +113,12 @@ async def poshta(message: types.Message, state: FSMContext):
 
 @dp.message_handler(lambda message: types.Message)
 async def info(message: types.Message):
-    await message.answer('''Я інтерактивний чат-бот, що стане твоїм єдиним інструктором у квесті до Дня першої пластової присяги. 
+    await message.answer('''Я інтерактивний чат-бот, що стане твоїм єдиним інструктором у квесті до Дня першої пластової присяги.
     Захід буде транслюватися онлайн 11 квітня. Початок квесту: 10:00. Усю потрібну інформацію відправлю тобі трохи раніше - слідкуй за оновленнями.
 
 Вразі виникнення проблем із ботом пропонуємо наступний алгоритм дій:
 1. Перезапустити бота(введіть в чаті команду /start)
-2. Не помогло? Тоді пишіть сюди:''')
+2. Не помогло? Тоді пишіть сюди: @zelenkkkaaaaa''')
 
 if __name__ == "__main__":  # start polling
     executor.start_polling(dp, skip_updates=True)
