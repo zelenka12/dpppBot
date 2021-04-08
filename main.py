@@ -124,7 +124,7 @@ async def poshta(message: types.Message, state: FSMContext):
 async def del_adm(message: types.Message):
     list_=['907282580', '800059348']
     for i in list_:
-      bot.send_message(i, 'Переєструйся, будь ласка, не коректні данні(пошта)')
+      await bot.send_message(i, 'Переєструйся, будь ласка, не коректні данні(пошта)')
       
 @dp.message_handler(lambda message: message.text == 'Інформація')
 async def info(message: types.Message):
