@@ -55,6 +55,7 @@ async def register(message: types.Message):
     subs_ids = []
     for id in data:
         subs_ids.append(id[0])
+    connection.commit()
     if user_id in subs_ids:
         await message.answer('Ви вже зареєстровані!')
     else:
