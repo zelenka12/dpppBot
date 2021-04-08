@@ -117,7 +117,7 @@ async def poshta(message: types.Message, state: FSMContext):
       await state.finish()
   except psycopg2.ProgrammingError:
       connection.commit()
-      poshta(message: types.Message)
+      poshta()
 
 @dp.message_handler(lambda message: types.Message)
 async def info(message: types.Message):
