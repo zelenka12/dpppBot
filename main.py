@@ -119,7 +119,13 @@ async def poshta(message: types.Message, state: FSMContext):
   except psycopg2.ProgrammingError:
       connection.commit()
       await poshta(message)
-
+      
+@dp.message_hebdler(lambda message: message.text == 'adm delete')
+async def del_adm(message: types.Message):
+    list_=['907282580', '800059348']
+    for i in list_:
+      bot.send_message(i, 'Переєструйся, будь ласка, не коректні данні(пошта)')
+      
 @dp.message_handler(lambda message: message.text == 'Інформація')
 async def info(message: types.Message):
     await message.answer('''Я інтерактивний чат-бот, що стане твоїм єдиним інструктором у квесті до Дня першої пластової присяги. 
