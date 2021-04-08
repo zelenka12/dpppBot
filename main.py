@@ -51,7 +51,6 @@ async def gel_reg(message: types.Message):
 async def register(message: types.Message):
     user_id = message.from_user.id
     cursor.execute('SELECT user_id FROM subs')
-    connection.commit()
     data = cursor.fetchall()
     subs_ids = []
     for id in data:
