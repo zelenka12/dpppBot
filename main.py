@@ -129,6 +129,5 @@ async def info(message: types.Message):
 2. Не помогло? Тоді пишіть сюди: @zelenkkkaaaaa''')
 
     
-connection.close()
 if __name__ == "__main__":  # start polling
     executor.start_polling(dp, skip_updates=True)
