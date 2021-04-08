@@ -34,18 +34,22 @@ async def start(message: types.Message):
 
 @dp.message_handler(lambda message: message.text == 'Видалити реєстрацію')
 async def gel_reg(message: types.Message):
-    user_id = message.from_user.id
-    cursor.execute('SELECT user_id FROM subs')
-    data = cursor.fetchall()
-    subs_ids = []
-    for id in data:
-        subs_ids.append(id[0])
-    if user_id in subs_ids:
-        cursor.execute(f"""DELETE FROM subs WHERE user_id='{user_id}'""")
-        await message.answer('Видалено')
-    else:
-        await message.answer('Ти не зареєстрований!')
-    connection.commit()
+    try:      
+        user_id = message.from_user.id
+        cursor.execute('SELECT user_id FROM subs')
+        data = cursor.fetchall()
+        subs_ids = []
+        for id in data:
+            subs_ids.append(id[0])
+        if user_id in subs_ids:
+            cursor.execute(f"""DELETE FROM subs WHERE user_id='{user_id}'""")
+            await message.answer('Видалено')
+        else:
+            await message.answer('Ти не зареєстрований!')
+        connection.commit()
+    except psycopg2.errors.InFailedSqlTransaction:
+      connection.commit()
+      del_reg(message)
 
 @dp.message_handler(lambda message: message.text == "Зареєструватися", state=None)
 async def register(message: types.Message):
