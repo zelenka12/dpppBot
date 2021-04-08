@@ -119,7 +119,7 @@ async def poshta(message: types.Message, state: FSMContext):
       connection.commit()
       await poshta(message)
 
-@dp.message_handler(lambda message: types.Message)
+@dp.message_handler(lambda message: message.text == 'Інформація')
 async def info(message: types.Message):
     await message.answer('''Я інтерактивний чат-бот, що стане твоїм єдиним інструктором у квесті до Дня першої пластової присяги. 
     Захід буде транслюватися онлайн 11 квітня. Початок квесту: 10:00. Усю потрібну інформацію відправлю тобі трохи пізніше - слідкуй за оновленнями.
