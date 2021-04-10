@@ -268,7 +268,7 @@ async def solve_of_kvest(message: types.Message, state: FSMContext):
         cursor.execute(f'UPDATE subs SET progress={current_progress+1} WHERE user_id={user_id}')
         await message.answer('Готовий до наступного завдання?')
     else:
-        await message.answer('Вітаю')
+        await message.answer('Вітаю!')
     connection.commit()
 
 @dp.message_handler(state=Kvest_state.finish_of_quest)
