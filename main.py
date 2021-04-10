@@ -104,11 +104,13 @@ async def poshta(message: types.Message, state: FSMContext):
       subs_ids = []
       for id in data:
           subs_ids.append(id[0])
+      if "'" in f_name:
+        f_name = f_name.replace("'", '')
       if user_id not in subs_ids:
           cursor.execute(
-              f"INSERT INTO subs (username,f_name,old,user_id,stanucya,poshta) "
-              f"VALUES ('{username}', '{f_name}', '{old}', '{user_id}', '{stanucya}', '{poshta}')")
-          connection.commit()
+            f"INSERT INTO subs (username,f_name,old,user_id,stanucya,poshta,score,progress) "
+            f"VALUES ('{username}', '{f_name}', '{old}', '{user_id}', '{stanucya}', '{poshta},0,0')")
+        connection.commit()
       else:
           cursor.execute(f"UPDATE subs SET username='{username}',f_name='{f_name}', "
                          f"old='{old}',user_id='{user_id}',stanucya='{stanucya}', poshta='{poshta}' "
