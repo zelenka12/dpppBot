@@ -50,7 +50,7 @@ async def start(message: types.Message):
     kb.add(types.KeyboardButton('Інформація'))
     kb.add(types.KeyboardButton('Видалити реєстрацію'))
     await message.answer('''СКОБ! Друже\Подруго!''', reply_markup=kb)
-    print(message.chat.id)
+
 @dp.message_handler(lambda message: message.text == 'Видалити реєстрацію')
 async def gel_reg(message: types.Message):
     try:
@@ -73,7 +73,6 @@ async def gel_reg(message: types.Message):
 @dp.message_handler(lambda message: message.text == "Зареєструватися", state=None)
 async def register(message: types.Message):
     user_id = message.from_user.id
-    print(f'{user_id} реєструється')
     cursor.execute('SELECT user_id FROM subs')
     data = cursor.fetchall()
     subs_ids = []
