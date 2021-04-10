@@ -139,7 +139,7 @@ async def poshta(message: types.Message, state: FSMContext):
         connection.commit()
         cursor.execute(f"INSERT INTO subs (username,f_name,old,user_id,stanucya,poshta) "
                        f"VALUES ('{username}', '{f_name}', '{old}', '{user_id}', '{stanucya}', '{poshta}')")
-        await message.answer('Реєстрація Успішна')
+        await message.answer('Реєстрація Успішна!')
         await state.finish()
 
 @dp.message_handler(lambda message: message.text == 'Інформація')
