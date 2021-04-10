@@ -229,7 +229,7 @@ async def action_of_quest(message: types.Message, state: FSMContext):
         if progress == 12:
             if number == progress:
                 await bot.send_photo(message.chat.id, photo=open(f'photos/{task[0]}', 'rb'))
-                await message.answer('Напиши кілька слів відгку будь-ласка, Як тобі квест?')
+                await message.answer('Напиши, будь ласка,відгук. Як тобі квест?')
                 await Kvest_state.finish_of_quest.set()
                 break
         if number == progress:
