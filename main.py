@@ -230,7 +230,7 @@ async def action_of_quest(message: types.Message, state: FSMContext):
     for number, task in kvest.items():
         if progress == 12:
             if number == progress:
-                await bot.send_photo(message.chat.id, photo=open(f'dpppBot/photos/{task[0]}', 'rb'))
+                await bot.send_photo(message.chat.id, photo=open(f'photos/{task[0]}', 'rb'))
                 await message.answer('Напиши кілька слів відгку будь-ласка, Як тобі квест?')
                 await Kvest_state.finish_of_quest.set()
                 break
@@ -238,11 +238,11 @@ async def action_of_quest(message: types.Message, state: FSMContext):
             if task[1] != 0:
                 kb = types.InlineKeyboardMarkup(resize_keyboard=True)
                 kb.add(types.InlineKeyboardButton(text='Тиць', url=f'{task[1]}'))
-                await bot.send_photo(message.chat.id, photo=open(f'dpppBot/photos/{task[0]}', 'rb'), reply_markup=kb)
+                await bot.send_photo(message.chat.id, photo=open(f'photos/{task[0]}', 'rb'), reply_markup=kb)
                 await Kvest_state.next()
                 break
             else:
-                await bot.send_photo(message.chat.id, photo=open(f'dpppBot/photos/{task[0]}', 'rb'))
+                await bot.send_photo(message.chat.id, photo=open(f'photos/{task[0]}', 'rb'))
                 await Kvest_state.next()
                 break
         else:
