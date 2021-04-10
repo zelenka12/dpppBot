@@ -136,7 +136,7 @@ async def poshta(message: types.Message, state: FSMContext):
         await message.answer('Реєстрація Успішна')
         await state.finish()
     except psycopg2.ProgrammingError:
-        await message.answer('Реєстрація не вдала спробуйте ще раз')
+        await message.answer('Реєстрація невдала спробуйте ще раз')
         connection.commit()
         await state.finish()
 
