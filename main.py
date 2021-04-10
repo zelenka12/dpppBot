@@ -136,10 +136,8 @@ async def poshta(message: types.Message, state: FSMContext):
         await message.answer('Реєстрація Успішна')
         await state.finish()
     except psycopg2.ProgrammingError:
+        await message.answer('Реєстрація не вдала спробуйте ще раз')
         connection.commit()
-        cursor.execute(f"INSERT INTO subs (username,f_name,old,user_id,stanucya,poshta) "
-                       f"VALUES ('{username}', '{f_name}', '{old}', '{user_id}', '{stanucya}', '{poshta}')")
-        await message.answer('Реєстрація Успішна!')
         await state.finish()
 
 @dp.message_handler(lambda message: message.text == 'Інформація')
