@@ -125,8 +125,8 @@ async def poshta(message: types.Message, state: FSMContext):
         if "'" in f_name:
             f_name = f_name.replace("'", '')
         if user_id not in subs_ids:
-            cursor.execute(f"INSERT INTO subs (username,f_name,old,user_id,stanucya,poshta,score,progress) "
-                f"VALUES ('{username}', '{f_name}', '{old}', '{user_id}', '{stanucya}', '{poshta},0,0')")
+            cursor.execute(f"INSERT INTO subs (username,f_name,old,user_id,stanucya,poshta)"
+                f"VALUES ('{username}', '{f_name}', '{old}', '{user_id}', '{stanucya}', '{poshta}')")
             connection.commit()
         else:
             cursor.execute(f"UPDATE subs SET username='{username}',f_name='{f_name}', "
@@ -137,7 +137,10 @@ async def poshta(message: types.Message, state: FSMContext):
         await state.finish()
     except psycopg2.ProgrammingError:
         connection.commit()
-
+        cursor.execute(f"INSERT INTO subs (username,f_name,old,user_id,stanucya,poshta) "
+                       f"VALUES ('{username}', '{f_name}', '{old}', '{user_id}', '{stanucya}', '{poshta}')")
+        await message.answer('Реєстрація Успішна')
+        await state.finish()
 
 @dp.message_handler(lambda message: message.text == 'Інформація')
 async def info(message: types.Message):
